@@ -1,8 +1,25 @@
 import React from 'react';
 import Logo from '../../assets/react.svg';
 import { restaurantList } from '../../../Data';
+import { useState, useEffect } from 'react';
+
+import axios from 'axios';
 
 const ResCard = (props) => {
+  const [listOfRestaurants, setListOfRestaurants] = useState('');
+
+  useEffect(() => {
+    fecthData();
+  }, []);
+
+  const fecthData = async () => {
+    const response = await axios.get(
+      'https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&page_type=DESKTOP_WEB_LISTING'
+    );
+    const resData = await response.data;
+    console.log('response', resData);
+  };
+
   return (
     <>
       {restaurantList.length > 0 &&
